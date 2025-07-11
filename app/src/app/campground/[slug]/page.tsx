@@ -4,7 +4,7 @@ import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
 import { client } from "@/sanity/client";
 import Link from "next/link";
 
-const POST_QUERY = `*[_type == "post" && slug.current == $slug][0]`;
+const CAMPGROUND_QUERY = `*[_type == "campground" && slug.current == $slug][0]`;
 
 const { projectId, dataset } = client.config();
 const urlFor = (source: SanityImageSource) =>
@@ -14,38 +14,37 @@ const urlFor = (source: SanityImageSource) =>
 
 const options = { next: { revalidate: 30 } };
 
-export default async function PostPage({
+export default async function CampgroundPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
-  const post = await client.fetch<SanityDocument>(
-    POST_QUERY,
+  const campground = await client.fetch<SanityDocument>(
+    CAMPGROUND_QUERY,
     await params,
     options
   );
-  const postImageUrl = post.image
-    ? urlFor(post.image)?.width(550).height(310).url()
+  const campgroundImageUrl = campground.image
+    ? urlFor(campground.image)?.width(550).height(310).url()
     : null;
 
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
       <Link href="/" className="hover:underline">
-        ← Back to posts
+        ← Back to campgrounds
       </Link>
-      {postImageUrl && (
+      {campgroundImageUrl && (
         <img
-          src={postImageUrl}
-          alt={post.title}
+          src={campgroundImageUrl}
+          alt={campground.name}
           className="aspect-video rounded-xl"
           width="550"
           height="310"
         />
       )}
-      <h1 className="text-4xl font-bold mb-8">{post.title}</h1>
+      <h1 className="text-4xl font-bold mb-8">{campground.name}</h1>
       <div className="prose">
-        <p>Published: {new Date(post.publishedAt).toLocaleDateString()}</p>
-        {Array.isArray(post.body) && <PortableText value={post.body} />}
+        {Array.isArray(campground.description) && <PortableText value={campground.description} />}
       </div>
     </main>
   );
