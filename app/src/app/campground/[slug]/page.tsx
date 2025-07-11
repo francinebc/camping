@@ -28,8 +28,6 @@ export default async function CampgroundPage({
     ? urlFor(campground.image)?.width(550).height(310).url()
     : null;
 
-  console.log(campground.description);
-
   return (
     <main className="container mx-auto min-h-screen max-w-3xl p-8 flex flex-col gap-4">
       <Link href="/" className="hover:underline">
@@ -59,7 +57,7 @@ export default async function CampgroundPage({
 
 const components = {
   types: {
-    image: (props: any) => {
+    image: (props: { value: { asset: SanityImageSource } }) => {
       console.log("Image props:", props);
       const imageUrl = props.value.asset
         ? urlFor(props.value.asset)?.width(550).height(310).url()
