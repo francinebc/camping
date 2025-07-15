@@ -1,16 +1,10 @@
-import { PortableText, type SanityDocument } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
-import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { urlFor } from "@/app/utils";
 import { client } from "@/sanity/client";
+import type { SanityImageSource } from "@sanity/image-url/lib/types/types";
+import { PortableText, type SanityDocument } from "next-sanity";
 import Link from "next/link";
 
 const CAMPGROUND_QUERY = `*[_type == "campground" && slug.current == $slug][0]`;
-
-const { projectId, dataset } = client.config();
-const urlFor = (source: SanityImageSource) =>
-  projectId && dataset
-    ? imageUrlBuilder({ projectId, dataset }).image(source)
-    : null;
 
 const options = { next: { revalidate: 30 } };
 

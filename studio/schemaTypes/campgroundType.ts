@@ -24,9 +24,8 @@ export const campgroundType = defineType({
       type: 'image',
     }),
     defineField({
-      name: 'location',
-      type: 'url',
-      validation: (rule) => rule.required(),
+      name: 'visited',
+      type: 'date',
     }),
     defineField({
       name: 'price',
@@ -48,6 +47,10 @@ export const campgroundType = defineType({
       title: 'Distance',
       type: 'reference',
       to: [{type: distanceType.name}],
+    }),
+    defineField({
+      name: 'teaser',
+      type: 'string',
     }),
     defineField({
       name: 'description',
