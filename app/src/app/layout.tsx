@@ -21,7 +21,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${merriweather.variable} antialiased bg-zinc-800 text-white`}
+        className={`${merriweather.variable} antialiased bg-green-100 text-white`}
       >
         {children}
       </body>

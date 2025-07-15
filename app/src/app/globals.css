@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+@theme {
+  --color-green-50: #456139;
+  --color-green-60: #2b3f2a;
+  --color-green-80: #073516;
+  --color-green-90: #001f0c;
+  --color-green-100: #001107;
+  --color-gold-50: #bea571;
+    --color-gold-80: #8e7d57;
+}
+
 body {
   font-family:
     Helvetica Neue,
